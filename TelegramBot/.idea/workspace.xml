@@ -41,11 +41,6 @@
               <item name="TelegramBot" type="b2602c69:ProjectViewProjectNode" />
               <item name="TelegramBot" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="TelegramBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TelegramBot" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -56,6 +51,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
