@@ -1,4 +1,4 @@
-from Echo import config
+import config
 import telebot
 
 bot = telebot.TeleBot(config.token)

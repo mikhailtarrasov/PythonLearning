@@ -32,4 +32,4 @@ _ReSharper*/
 packages/
 #Config file
 Tele
-/TelegramBot/Echo/config.py
+/TelegramBot/config.py
