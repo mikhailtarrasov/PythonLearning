@@ -1,15 +1,14 @@
-import logging
-
-from app import config, logger
-import telegram
+# from . logger import Logger
+# import telegram
 from telegram.ext import Updater, CommandHandler
+from IPTutorial2 import config
 
 
 class App(object):
-    bot_updater = None #type: Updater
+    bot_updater = None  # type: Updater
 
     def __init__(self, params: dict = None):
-        self.bot_updater = Updater(config.token)
+        self.bot_updater = Updater(config.BOT_TOKEN)
 
         self.configurate()
 
