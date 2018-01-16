@@ -1,3 +1,3 @@
-from IPTutorial2.app import App
+from app import App
 
 app = App()
