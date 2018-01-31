@@ -1,5 +1,3 @@
-# from . logger import Logger
-# import telegram
 from accounting.account_manager import AccountManager
 from telegram.ext import Updater, CommandHandler
 from app import config
@@ -9,7 +7,9 @@ class App(object):
     bot_updater = None  # type: Updater
     account_manager = None  # type: AccountManager
 
-    add_account_command_example = '/add_account {ACCOUNT NAME}'
+    example_account_name = 'AccountName'
+    example_add_account_command = '/add_account {0}'.format(example_account_name)
+    example_change_account_command = '/change_account {0}'.format(example_account_name)
 
     def __init__(self, params: dict = None):
         self.bot_updater = Updater(config.token)
@@ -34,8 +34,8 @@ class App(object):
 
     def command_help(self, bot, update):
         update.message.reply_text('/show_accounts\n'
-                                  + '{0}\n'.format(self.add_account_command_example)
-                                  + '/change_account {ACCOUNT NAME}\n'
+                                  + '{0}\n'.format(self.example_add_account_command)
+                                  + '{0}\n'.format(self.example_change_account_command)
                                   + '/get_balance')
 
     def command_show_accounts(self, bot, update):
@@ -50,11 +50,16 @@ class App(object):
         account_name = None if args is None or not args else args[0]
         if account_name is None:
             msg = 'Please, enter account name after command.\n' \
-                  'Example: {0}'.format(self.add_account_command_example)
+                  'Example: {0}'.format(self.example_add_account_command)
         if account_name is not None:
             msg = self.account_manager.add_account(account_name)
         update.message.reply_text(msg)
 
-    def command_change_account(self, bot, update, account_name):
-        msg = self.account_manager.change_account(account_name)
+    def command_change_account(self, bot, update, args):
+        account_name = None if args is None or not args else args[0]
+        if account_name is None:
+            msg = 'Please, enter account name after command.\n' \
+                  'Example: {0}'.format(self.example_change_account_command)
+        else:
+            msg = self.account_manager.change_account(account_name)
         update.message.reply_text(msg)
