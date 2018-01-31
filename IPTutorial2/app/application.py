@@ -40,14 +40,19 @@ class App(object):
 
     def command_show_accounts(self, bot, update):
         accounts = self.account_manager.show_accounts()
-        msg = 'There are no created accounts' if accounts.__len__() == 0 else accounts
+        msg = 'There are no created accounts'
+        if accounts:
+            msg = "Accounts:\n-\t" + \
+                  "\n-\t".join(accounts)
         update.message.reply_text(msg)
 
-    def command_add_account(self, bot, update, account_name):
-        msg = self.account_manager.add_account(account_name)
-        if msg is None:
+    def command_add_account(self, bot, update, args):
+        account_name = None if args is None or not args else args[0]
+        if account_name is None:
             msg = 'Please, enter account name after command.\n' \
                   'Example: {0}'.format(self.add_account_command_example)
+        if account_name is not None:
+            msg = self.account_manager.add_account(account_name)
         update.message.reply_text(msg)
 
     def command_change_account(self, bot, update, account_name):
