@@ -11,6 +11,9 @@ class App(object):
     example_add_account_command = '/add_account {0}'.format(example_account_name)
     example_change_account_command = '/change_account {0}'.format(example_account_name)
     example_get_balance = '/get_balance'
+    example_amount_value = '123.45'
+    example_add_income_command = '/add_income {0}'.format(example_amount_value)
+    example_add_expense_command = '/add_expense {0}'.format(example_amount_value)
 
     def __init__(self, params: dict = None):
         self.bot_updater = Updater(config.token)
@@ -29,6 +32,8 @@ class App(object):
         dp.add_handler(CommandHandler("add_account", self.command_add_account, pass_args=True))
         dp.add_handler(CommandHandler("change_account", self.command_change_account, pass_args=True))
         dp.add_handler(CommandHandler("get_balance", self.command_get_balance))
+        dp.add_handler(CommandHandler("add_income", self.command_add_income, pass_args=True))
+        dp.add_handler(CommandHandler("add_expense", self.command_add_expense, pass_args=True))
 
     def command_start(self, bot, update):
         update.message.reply_text('Welcome!\nAvailable commands:')
@@ -39,6 +44,8 @@ class App(object):
                                   + '{0}\n'.format(self.example_add_account_command)
                                   + '{0}\n'.format(self.example_change_account_command)
                                   + '{0}\n'.format(self.example_get_balance)
+                                  + '{0}\n'.format(self.example_add_income_command)
+                                  + '{0}\n'.format(self.example_add_expense_command))
 
     def command_show_accounts(self, bot, update):
         accounts = self.account_manager.show_accounts()
@@ -68,3 +75,21 @@ class App(object):
 
     def command_get_balance(self, bot, update):
         update.message.reply_text(self.account_manager.get_balance())
+
+    def command_add_income(self, bot, update, args):
+        amount = None if args is None or not args else args[0]
+        if amount is None:
+            msg = 'Please, enter income amount after command.\n' \
+                  'Example: {0}'.format(self.example_add_income_command)
+        else:
+            msg = self.account_manager.add_income(amount)
+        update.message.reply_text(msg)
+
+    def command_add_expense(self, bot, update, args):
+        amount = None if args is None or not args else args[0]
+        if amount is None:
+            msg = 'Please, enter expense amount after command.\n' \
+                  'Example: {0}'.format(self.example_add_expense_command)
+        else:
+            msg = self.account_manager.add_expenses(amount)
+        update.message.reply_text(msg)

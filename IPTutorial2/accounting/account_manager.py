@@ -51,3 +51,29 @@ class AccountManager(object):
 
     def show_accounts(self):
         return [account.name for account in self.__accounts]
+
+    def add_income(self, amount):
+        new_amount = float(amount) if isinstance(float(amount), float) else int(amount) if isinstance(int(amount), int) else None
+        if new_amount is None:
+            msg = 'Error! Please enter correct number!'
+            return msg
+        current_account = self.__get_account()  # type: Account
+        if current_account is not None:
+            current_account.add_transaction(new_amount)
+            msg = 'Income to \'{0}\' account was successfully added!'.format(current_account.name)
+        else:
+            msg = 'Error! Action canceled, please, select an account first!'
+        return msg
+
+    def add_expenses(self, amount):
+        new_amount = float(amount) if isinstance(float(amount), float) else int(amount) if isinstance(int(amount), int) else None
+        if new_amount is None:
+            msg = 'Error! Please enter correct number!'
+            return msg
+        current_account = self.__get_account()  # type: Account
+        if current_account is not None:
+            current_account.add_transaction(-new_amount)
+            msg = 'Expenses to \'{0}\' account was successfully added!'.format(current_account.name)
+        else:
+            msg = 'Error! Action canceled, please, select an account first!'
+        return msg
