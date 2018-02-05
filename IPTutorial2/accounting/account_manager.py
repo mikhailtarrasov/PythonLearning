@@ -32,7 +32,7 @@ class AccountManager(object):
         return msg
 
     def __get_account(self, account_name=__current_account_name):
-        if self.__is_account_exist(account_name):
+        if account_name is None or self.__is_account_exist(account_name):
             return None
         else:
             return (account for account in self.__accounts if account.name == account_name)
