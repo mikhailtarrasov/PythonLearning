@@ -10,6 +10,7 @@ class App(object):
     example_account_name = 'AccountName'
     example_add_account_command = '/add_account {0}'.format(example_account_name)
     example_change_account_command = '/change_account {0}'.format(example_account_name)
+    example_get_balance = '/get_balance'
 
     def __init__(self, params: dict = None):
         self.bot_updater = Updater(config.token)
@@ -27,6 +28,7 @@ class App(object):
         dp.add_handler(CommandHandler("show_accounts", self.command_show_accounts))
         dp.add_handler(CommandHandler("add_account", self.command_add_account, pass_args=True))
         dp.add_handler(CommandHandler("change_account", self.command_change_account, pass_args=True))
+        dp.add_handler(CommandHandler("get_balance", self.command_get_balance))
 
     def command_start(self, bot, update):
         update.message.reply_text('Welcome!\nAvailable commands:')
@@ -36,7 +38,7 @@ class App(object):
         update.message.reply_text('/show_accounts\n'
                                   + '{0}\n'.format(self.example_add_account_command)
                                   + '{0}\n'.format(self.example_change_account_command)
-                                  + '/get_balance')
+                                  + '{0}\n'.format(self.example_get_balance)
 
     def command_show_accounts(self, bot, update):
         accounts = self.account_manager.show_accounts()
@@ -63,3 +65,6 @@ class App(object):
         else:
             msg = self.account_manager.change_account(account_name)
         update.message.reply_text(msg)
+
+    def command_get_balance(self, bot, update):
+        update.message.reply_text(self.account_manager.get_balance())

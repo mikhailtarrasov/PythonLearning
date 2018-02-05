@@ -38,6 +38,10 @@ class AccountManager(object):
             return (account for account in self.__accounts if account.name == account_name)
 
     def get_balance(self):
+        if self.__current_account_name is None:
+            msg = 'Error! Please select account first!'
+            return msg
+        
         current_account = self.__get_account()  # type: Account
         if current_account is not None:
             return current_account.balance
