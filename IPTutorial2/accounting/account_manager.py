@@ -48,7 +48,7 @@ class AccountManager(object):
         
         current_account = self.__get_account(self.__current_account_name)  # type: Account
         if current_account is not None:
-            return current_account.balance
+            return 'The balance of your \'{0}\' account is {1}!'.format(current_account.name, current_account.balance)
         else:
             msg = 'Error! Account with \'{0}\' name is not exist yet!'.format(self.__current_account_name)
             return msg
@@ -77,7 +77,7 @@ class AccountManager(object):
         current_account = self.__get_account(self.__current_account_name)  # type: Account
         if current_account is not None:
             current_account.add_transaction(-new_amount)
-            msg = 'Expenses to \'{0}\' account was successfully added!'.format(current_account.name)
+            msg = 'Expense to \'{0}\' account was successfully added!'.format(current_account.name)
         else:
             msg = 'Error! Action canceled, please, select an account first!'
         return msg
