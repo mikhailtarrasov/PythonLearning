@@ -36,7 +36,7 @@ class App(object):
         dp.add_handler(CommandHandler("add_expense", self.command_add_expense, pass_args=True))
 
     def command_start(self, bot, update):
-        update.message.reply_text('Welcome!\n')
+        update.message.reply_text('Welcome, {0}!\n'.format(update.effective_user.first_name))
         self.command_help(bot, update)
 
     def get_active_account_name(self):
