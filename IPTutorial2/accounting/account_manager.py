@@ -2,10 +2,9 @@ from accounting.account import Account
 
 
 class AccountManager(object):
-    __current_account_name = None
-    __accounts = None
 
     def __init__(self):
+        self.__current_account_name = None  # type: str
         self.__accounts = []  # type: Account
 
     def __is_account_exist(self, account_name):
@@ -31,11 +30,16 @@ class AccountManager(object):
             msg = 'Error! Account with \'{0}\' name is not exist yet!'.format(account_name)
         return msg
 
-    def __get_account(self, account_name=__current_account_name):
-        if account_name is None or self.__is_account_exist(account_name):
+    def __get_account(self, account_name):
+        if account_name is None or self.__is_account_exist(account_name) is False:
             return None
         else:
-            return (account for account in self.__accounts if account.name == account_name)
+            return next(account for account in self.__accounts if account.name == account_name)
+
+    def get_active_account_name(self):
+        acc = self.__get_account(self.__current_account_name)
+        if acc:
+            return acc.name
 
     def get_balance(self):
         if self.__current_account_name is None:
