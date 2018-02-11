@@ -46,7 +46,7 @@ class AccountManager(object):
             msg = 'Error! Please select account first!'
             return msg
         
-        current_account = self.__get_account()  # type: Account
+        current_account = self.__get_account(self.__current_account_name)  # type: Account
         if current_account is not None:
             return current_account.balance
         else:
@@ -61,7 +61,7 @@ class AccountManager(object):
         if new_amount is None:
             msg = 'Error! Please enter correct number!'
             return msg
-        current_account = self.__get_account()  # type: Account
+        current_account = self.__get_account(self.__current_account_name)  # type: Account
         if current_account is not None:
             current_account.add_transaction(new_amount)
             msg = 'Income to \'{0}\' account was successfully added!'.format(current_account.name)
@@ -74,7 +74,7 @@ class AccountManager(object):
         if new_amount is None:
             msg = 'Error! Please enter correct number!'
             return msg
-        current_account = self.__get_account()  # type: Account
+        current_account = self.__get_account(self.__current_account_name)  # type: Account
         if current_account is not None:
             current_account.add_transaction(-new_amount)
             msg = 'Expenses to \'{0}\' account was successfully added!'.format(current_account.name)
